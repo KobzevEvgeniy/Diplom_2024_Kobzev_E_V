@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container"
+     style="margin: 0 auto;width: 50%;padding: 50px;background: #f1f1f1;margin-top: 50px;margin-bottom: 50px;">
+    <div class="row invoice row-printable">
+        <div class="col-md-12">
+            <div class="panel panel-default plain" id="dash_0">
+                <div class="panel-body p30">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="formula-logo"><img src="{% static 'media/formula/logo.jpg' %}"
+                                                           alt="Formula logo"
+                                                           style="max-height: 40px;"></div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="Formula-from">
+                                <ul class="list-unstyled text-right">
+                                    <li><strong>Разработчик: {{ full_name }}</strong></li>
+                                    <li>Статус рецептуры: {{ recipe_status }}</li>
+                                    <li>Дата создания рецептуры: {{ date_added }}</li>
+                                    <li>Название продукта в разработке: {{ name_product }}</li>
+                                    <li>Статус успеха рецептуры: {{ status_success }}</li>
+                                    <li>Себестоимость продукта: {{ sub_total_price }}</li>
+                                    <li>Количество сухих веществ полученного продукта: {{ sub_total_brix }}</li>
+                                    <li>Описание Техпроцесса: {{ description_formula }}</li>
+                                    <li>Описание полученного результата (продукта): {{ description_product }}</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="formula-items">
+                            <div class="table-responsive" style="overflow: hidden; outline: none;" tabindex="0">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th class="per5 text-center">Этапы лабораторного опыта/варки</th>
+                                        <th class="per70 text-center">Ингредиент</th>
+                                        <th class="per5 text-center">BRIX ингредиента</th>
+                                        <th class="per5 text-center">Сухих веществ</th>
+                                        <th class="per5 text-center">Кол-во на 1 кг готового продукта</th>
+                                        <th class="per5 text-center">ед.измерения</th>
+                                        <th class="per25 text-center">Цена</th>
+                                         <th class="per25 text-center">Доля от общей массы,%</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in formula_detail %}
+                                    <tr>
+                                        <td><a href="{{ item.formula_details.get_url }}">{{ item.formula_details.name }}</a>
+                                            <p class="text-muted small">
+                                                {% if item.formula_details.all %}
+                                                {% for i in item.formula_details.all %}
+                                                {{ i.ingredient}} : {{ i.value }} <br>
+                                                {{ i.brix }} : {{ i.value }} <br>
+                                                {{ i.quantity_1 }} : {{ i.value }} <br>
+                                                {{ i.unit_of_measure }} : {{ i.value }} <br>
+                                                {{ i.price }} : {{ i.value }} <br>
+                                                {{ i.level_in_total_volume }} : {{ i.value }} <br>
+
+                                                {% endfor %}
+                                                {% endif %}
+                                            </p>
+                                        </td>
+                                       </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-right">Всего сухих:</td>
+                                        <td class="text-center">{{ total_dry_matter_product }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7" class="text-right">Себестоимость итого:</td>
+                                        <td class="text-center">{{ total_price_product }} RUB</td>
+                                    </tr>
+
+                                     </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="formula-footer mt25">
+                            <p class="text-center">Неплохая работа!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}

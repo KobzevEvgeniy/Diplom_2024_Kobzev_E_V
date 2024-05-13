@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="section-content padding-y bg">
+
+    {% include 'userapp/alerts.html' %}
+    <div class="container">
+        <div class="row">
+            {% include 'userapp/dashboard_sidebar.html' %}
+            <main class="col-md-9">
+                <article class="card">
+                    <header class="card-header">
+                        <strong class="d-inline-block mr-3">Ваши рецептуры</strong>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">№ рецептуры</th>
+                                        <th scope="col">Дата разработки</th>
+                                      <th scope="col">Разработчик</th>
+                                      <th scope="col">Название продукта</th>
+                                      <th scope="col">Cебестоимость</th>
+                                        <th scope="col">Количество сухих веществ</th>
+                                      <th scope="col">Стадия разработки</th>
+                                        <th scope="col">Статус успеха</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for formula in formulas %}
+                                    <tr>
+                                      <th scope="row"><a href="{% url 'my_formulas' formula.formula_id %}">{{ formula_id}}</a></th>
+                                       <td>{{ date_added}}</td>
+                                        <td>{{ full_name}}</td>
+                                      <td>{{ name_product}}</td>
+                                        <td>{{ sub_total_price}}</td>
+                                        <td>{{ sub_total_brix}}</td>
+                                      <td>{{ stage}} ₽</td>
+                                      <td>{{ status_success}}</td>
+                                    </tr>
+                                  {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </main>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

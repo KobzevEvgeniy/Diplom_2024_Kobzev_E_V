@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Удаление Ингредиентов{% endblock %}
+
+{% block content %}
+<h1>Ингредиент {{ ingredient.name }} успешно удален!</h1><br>
+<h2>Описание {{ ingredient.description }}</h2><br>
+<h2>Поставщик {{ ingredient.supplier }}</h2><br>
+<h2>Производитель {{ ingredient.manufacturer }}</h2><br>
+
+{% endblock %}

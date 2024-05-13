@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}ИНГРДЕДИЕНТЫ{% endblock %}
+
+{% block content %}
+<h1>{{ ingredient.name }}</h1>
+{% if ingredient.image %}
+<img src="{{ ingredient.image.url }}" alt="{{ ingredient.name }}" width="320" height="320">
+{% else %}
+<p></p>
+{% endif %}
+<ul>
+    <li><p>Id в системе: {{ ingredient.id }}</p></li>
+    <li><p>Описание: {{ ingredient.description }}</p></li>
+    <li><p>Е индекс: {{ ingredient.index_e }}</p></li>
+    <li>Цена: {{ ingredient.price }} руб</li>
+    <li>Количество: {{ ingredient.quantity }} шт.</li>
+    <li>Единицы измерения: {{ ingredient.unit_of_measure }}</li>
+    <li>BRIX: {{ ingredient.brix }} %</li>
+    <li>Поставщик: {{ ingredient.supplier }}</li>
+    <li>Производитель: {{ ingredient.manufacturer }}</li>
+
+
+</ul>
+{% endblock %}

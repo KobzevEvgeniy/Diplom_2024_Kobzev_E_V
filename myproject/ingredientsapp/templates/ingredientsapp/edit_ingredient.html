@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактировать данные ингредиента{% endblock %}
+
+{% block content %}
+    <h1>Редактировать ингредиент</h1>
+    <form action="{% url 'edit_ingredient' ingredient.id %}" method="post" enctype="multipart/form-data">
+       {{ ingredient }}
+        <button type="submit">Сохранить</button>
+    </form>
+{% endblock %}

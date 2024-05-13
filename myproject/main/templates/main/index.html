@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+        .description {
+  color: white;
+  font-size: 200%;
+  }
+
+</style>
+<title>{% block title %}Главная страница{% endblock %}</title>
+<div class="description">
+
+
+    <h1 class="display-2">Приветствую на сайте Technologist table</h1><br>
+    <h1 class="display-8">Данное приложение позволяет: </h1><br>
+    <ul>
+        <li>Создавать рецептуры готовых продуктов</li>
+        <li>Просчитывать себестоимость готовых продуктов</li>
+        <li>Просчитывать количество сухих веществ готовых продуктов</li>
+        <li>Просматривать статистику по проведенным опытам</li>
+    </ul>
+</div>
+{% endblock %}
+

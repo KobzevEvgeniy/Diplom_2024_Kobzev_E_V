@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавление Ингредиентов{% endblock %}
+
+{% block content %}
+<style>
+    .add_ingredient {
+    clear:both;
+    text-align:left;
+    color: white;
+    padding-right:100px;
+    padding-left:50px;
+    line-height:25px;
+  }
+
+
+</style>
+<div class="add_ingredient">
+    <h1>Добавить Ингредиент</h1>
+    <h3>{{ message }}</h3>
+    <form action="{% url 'add_ingredient' %}" method="post" enctype="multipart/form-data">
+        {{ ingredient }}
+        <button type="submit">Добавить</button>
+    </form>
+
+</div>
+
+{% endblock %}
