@@ -2,14 +2,13 @@ from django.contrib import admin
 from django.db import models
 
 from ingredientsapp.models import Ingredient
-from userapp.models import User
-
+from accounts.models import Account
 
 class Formula(models.Model):
     """class of Formula"""
     objects = models.Manager()
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, verbose_name='Пользователь')
     first_name = models.CharField(max_length=50, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
     date_added = models.DateField(auto_now_add=True, verbose_name='Дата добавления')
@@ -29,6 +28,8 @@ class Formula(models.Model):
     description_formula = models.TextField(verbose_name='Технологический процесс')
     name_product = models.TextField(max_length=100, verbose_name='Название полученного продукта')
     description_product = models.TextField(verbose_name='Описание полученного продукта')
+    product_photo = models.ImageField(upload_to='myproject/media/product', default='default_image.png', blank=True,
+                                      verbose_name='Изображение готового продукта')
 
 
     @admin.display(description='Фамилия Имя разработчика')
@@ -65,19 +66,16 @@ class FormulaIngredients(models.Model):
     ]
     stage = models.CharField(max_length=1, choices=STAGE_CHOICES, verbose_name='Этапы лабораторного опыта/варки')
     formula = models.ForeignKey(Formula, on_delete=models.CASCADE, verbose_name='Рецептура')
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, verbose_name='Ингредиент')
+    ingredient = models.ManyToManyField(Ingredient, verbose_name='Ингредиент')
     brix = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Brix')
     dry_matter = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сухих веществ')
     quantity_1 = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Количество на 1 кг продукта')
     unit_of_measure = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Единицы измерения')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     index_e = models.CharField(max_length=12, verbose_name='Е-индекс')
+    level_in_total_volume = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Доля в общем объеме')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
-    product_photo = models.ImageField(upload_to='myproject/media/product', default='default_image.png', blank=True,
-                                      verbose_name='Изображение готового продукта')
-    level_in_total_volume = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Доля в общем объеме')
-
     def __str__(self):
         return (f'Рецептура: {self.formula},\n'
                 f'Этап: {self.stage},\n'

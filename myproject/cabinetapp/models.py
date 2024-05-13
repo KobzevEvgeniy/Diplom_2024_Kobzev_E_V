@@ -1,9 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
-from .views import _cabinet_id
+from accounts.models import Account
 from formulaapp.models import Formula
-from userapp.models import User
+from .views import _cabinet_id
 
 
 class Cabinet(models.Model):
@@ -21,7 +21,7 @@ class Cabinet(models.Model):
 
 class CabinetItem(models.Model):
     objects = models.Manager()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name='Пользователь')
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True, verbose_name='Пользователь')
     formula = models.ForeignKey(Formula, on_delete=models.CASCADE, verbose_name='Рецептура')
     cabinet = models.ForeignKey(Cabinet, on_delete=models.CASCADE, null=True, verbose_name='Кабинет')
     is_active = models.BooleanField(default=True, verbose_name='Активно')
@@ -55,6 +55,5 @@ def counter(request):
         except ObjectDoesNotExist:
             cabinet_count = 0
     return dict(cabinet_count=cabinet_count)
-from django.db import models
 
 # Create your models here.

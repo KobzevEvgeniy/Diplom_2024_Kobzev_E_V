@@ -9,5 +9,6 @@ def _cabinet_id(request):
         cabinet = request.session.create()
     return cabinet
 
+
 def cabinet_index(request):
     return
